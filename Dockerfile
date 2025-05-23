@@ -19,11 +19,15 @@ RUN cd /usr/lib64/ \
  && ln -sf /usr/lib64/libcrypto.so.10 libcrypto.so.6 \
  && ln -sf libtiff.so.5 libtiff.so.3 \
  && ln -sf libgeotiff.so.1.2.5 libgeotiff.so
-# && mkdir -p /usr/local/lib/grads \
-# && touch /usr/local/lib/grads/udpt \
-# && echo 'gxdisplay  Cairo    /usr/lib64/libcairo.so.2' >> /usr/local/lib/grads/udpt \
-# && echo 'gxprint    Cairo    /usr/lib64/libcairo.so.2' >> /usr/local/lib/grads/udpt
-ENTRYPOINT [ "/bin/bash" ]
 
-#ENTRYPOINT [ "/grads/grads-2.2.1/bin/grads" ]
-# grads-2.1.0/bin/grads -bcl help
+WORKDIR /usr/local/lib/grads/ 
+RUN wget http://cola.gmu.edu/grads/data2.tar.gz \ 
+ && tar xvfz data2.tar.gz  
+
+#double check and ensure GrADS knows where to find files
+ENV GADDIR /usr/local/lib/grads
+
+#Set PATH to include grads bin
+ENV PATH {$PATH}:/grads/grads-2.1.0/bin
+
+ENTRYPOINT [ "/bin/bash" ]
