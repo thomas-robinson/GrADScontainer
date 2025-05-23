@@ -19,3 +19,7 @@ singularity run -B ${PWD} grads_2.1.0.sif
 singularity run -B ${PWD} grads_2.1.0.sif
 Singularity> ./run_this.sh
 ```
+
+### Notes
+Code is provided on an 'as is' basis and the user assumes responsibility for its use.
+Developed by @thomas-robinson and @hderry May 2025
